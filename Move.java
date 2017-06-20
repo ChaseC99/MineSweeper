@@ -1,13 +1,21 @@
 /** MineSweeper
  *  @author Chase Carnaroli
- *  @period 6
  *  
+ *  Move class represents the move made by the player
+ *
+ *  INSTANCE VARIABLES
+ *      Location loc    // location of the click
+ *      Click move      // type of click made by the user
+ *
+ *  METHODS
+ *      getLocation() -> Location   // returns location
+ *      getClickType() -> Click     // returns click type
  */
 public class Move
 {
-    // instance variables - replace the example below with your own
-    private Location loc;
-    private Click move;
+    // instance variables
+    private Location loc;   // location of the click
+    private Click move;     // type of click made by the user
     
     /**
      * Constructor for objects of class Move
@@ -18,10 +26,12 @@ public class Move
         this.move = move;
     }
 
+    // returns location
     public Location getLocation(){
         return loc;
     }
     
+    // returns click type
     public Click getClickType(){
         return move;
     }
