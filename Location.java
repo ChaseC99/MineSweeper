@@ -1,23 +1,28 @@
 /** MineSweeper
  *  @author Chase Carnaroli
- *  @period 6
  *  
- *  Created based off of the PowaySoft TicTacToe Assignment
+ *  The Location class stores a row and column, which correlates to a position on the grid.  
+ *
+ *  Based off of the PowaySoft TicTacToe Assignment
  */
 
 import java.util.*;
 public class Location { 
-    int row, col;
+    // Instance Variables
+    int row, col;   // position of the location on the grid
 
-    /**  * Method Location  *  *  */ 
-    public Location(int r, int c) {
-        row = r; col = c;
+    // Constructor
+    public Location(int row, int col) {
+        this.row = row; 
+        this.col = col;
     }
 
+    // returns row
     public int getRow(){ 
         return row; 
     }
 
+    // returns col
     public int getCol(){
         return col; 
     }
