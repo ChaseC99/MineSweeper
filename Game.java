@@ -1,8 +1,27 @@
 /** MineSweeper
  *  @author Chase Carnaroli
- *  @period 6
  *  
+ *  Game class controls the gameflow of the MineSweeper game
+ *  Implements Model-View-Controller architectural pattern
  *  Created based off of the PowaySoft TicTacToe Assignment
+ *  
+ *  INSTANCE VARIABLES
+ *      MineField board         // The model of the game
+ *      UI display              // The View of the game
+ *      boolean pressed         // Represents whether player has clicked to make a move
+ *      Move pressedMove        // The last move made by the player
+ *
+ *  METHODS
+ *      getMineField() -> MineField     // Returns MineField
+ *      getBoardSize() -> int           // Returns boardSize
+ *      setDisplay(UI)                  // Sets the UI 
+ *      playGame()                      // Controls the game and keeps playing until game is over
+ *      processMove() -> Result         // waits for UI to indicate that a square was clicked (by detecting that pressed == true),
+ *                                          then tells board to either record the move or indicate if it was an invalid move;
+ *                                          if invalid, waits for another move; if valid, returns Result
+ *      pressed(Move)                   // Indicates player has clicked and made a move
+ *      resetGame()                     // Clears board for a new game
+ *
  */
 public class Game
 {
@@ -37,6 +56,9 @@ public class Game
         return board;
     }
 
+    /*
+     *  post: returns boardSize
+     */
     public int getBoardSize(){
         return board.getBoardSize();
     }
@@ -63,13 +85,6 @@ public class Game
             do{
                 result = processMove();                     // gets result of the move; waits inside processMove method until tile is pressed
                 Location loc = pressedMove.getLocation();
-                /*if(result == Result.PLAYER_DIED){
-                    gameOver = true;            // end game
-                    display.showAllMines();     // show all mines
-                } else if(result == Result.MINEFIELD_CLEARED){
-                    gameOver = true;            // end game
-                    display.flagAllMines();     // flags all mines
-                }*/
 
                 switch(result){
                     case PLAYER_DIED:   
@@ -128,7 +143,6 @@ public class Game
             result = board.recordTurn(pressedMove);
             if(result != Result.INVALID_LOCATION && result != Result.LOCATION_ALREADY_TURNED){
                 validMove = true;
-                //display.updateDisplay();
             }
         }while(!validMove);
 

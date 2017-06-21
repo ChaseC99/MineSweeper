@@ -1,15 +1,36 @@
 /** MineSweeper
  *  @author Chase Carnaroli
- *  @period 6
  *  
+ *  Controls the User Interface and communicates with the controller
  *  Created based off of the PowaySoft TicTacToe Assignment
+ *
+ *  INSTANCE VARIABLES
+ *      Game myGame                 // Controller
+ *      JButton[][] buttonGrid      // Grid of buttons representing the minefield
+ *      int NUM_ROWS                // Number of rows on the board
+ *      int NUM_COLS                // Number of columns on the board
+ *      int boardSize               // Size of the board
+ *      Dimension buttonSize        // Dimension of each button
+ *      Icon flag                   // Image of a MineSweeper flag
+ *
+ *  METHODS
+ *      updateDisplay()                         // Updates the display based off of the board stored in the model
+ *      showAllMines()                          // Updates the display to show all mines
+ *      flagAllMines()                          // Updates display to flag all the mines
+ *      flag(Location)                          // Flags tile at this location
+ *      unFlag(Location)                        // Unflags tile at this location
+ *      question(Location)                      // Question marks tile at this location
+ *      displayWinner(Result) -> boolean        // Displays message with the end result; then asks if player wants to play again 
+ *                                                      returns true if user clicks ‘yes’ or ‘false’ if user clicks ‘no’
+ *      clearDisplay()                          // Resets all of the JButtons on the grid
+ *      endProgram()                            // Ends program and exits window
  */
 
-import java.awt.*;          // import Container
+import java.awt.*;                      // import Container
 import java.awt.image.BufferedImage;
-import java.util.*;         // import ArrayList
-import javax.swing.*;       // import JFrame
-import java.awt.event.*;    // import event listener
+import java.util.*;                     // import ArrayList
+import javax.swing.*;                   // import JFrame
+import java.awt.event.*;                // import event listener
 import java.io.File;
 import javax.imageio.ImageIO;
 
@@ -72,7 +93,7 @@ public class UI extends JFrame
 
         // code for the icons
         // flag icon
-        flag = new StretchIcon("E:\\School\\Senior\\AP Computer Science\\MineSweeper\\MineSweeperFlag.gif");
+        flag = new StretchIcon("MineSweeperFlag.gif");
 
         this.setJMenuBar(menuBar);
         // DON'T FORGET TO INCLUDE THIS CODE - otherwise you will not
@@ -90,8 +111,10 @@ public class UI extends JFrame
         setVisible(true);
     }
 
-    // pre: player is Symbol.PLAYER_X or Symbol.PLAYER_O; ‘loc’ is a valid location
-    // post: displays ‘player’ char in JButton specified by ‘loc’
+    /**
+     *  Updates the display based off of the board stored in the model
+     *  post: displays ‘player’ char in JButton specified by ‘loc’
+     */
     public void updateDisplay ()
     {        
         for(int r = 0; r < boardSize; r++){
@@ -109,6 +132,10 @@ public class UI extends JFrame
         }
     }
 
+    /**
+     *  Updates the display to show all mines
+     *  post: displays each mine on the board
+     */
     public void showAllMines(){
         for(int r = 0; r < boardSize; r++){
             for(int c = 0; c < boardSize; c++){
@@ -120,6 +147,10 @@ public class UI extends JFrame
         }
     }
 
+    /**
+     *  Updates display to flag all the mines
+     *  post: all mines on the board are flagged
+     */
     public void flagAllMines(){
         for(int r = 0; r < boardSize; r++){
             for(int c = 0; c < boardSize; c++){
@@ -131,16 +162,19 @@ public class UI extends JFrame
         }
     }
 
+    // Flags tile at this location
     public void flag(Location loc){
         buttonGrid[loc.getRow()][loc.getCol()].setText("");
         buttonGrid[loc.getRow()][loc.getCol()].setIcon(flag);
     }
 
+    // Unflags tile at this location
     public void unFlag(Location loc){
         buttonGrid[loc.getRow()][loc.getCol()].setIcon(null);
         buttonGrid[loc.getRow()][loc.getCol()].setText("");
     }
 
+    // Question marks tile at this location
     public void question(Location loc){
         buttonGrid[loc.getRow()][loc.getCol()].setIcon(null);
         buttonGrid[loc.getRow()][loc.getCol()].setText("?");
@@ -160,7 +194,7 @@ public class UI extends JFrame
         }
     }
 
-    // post: clears all JButtons (so text is neither ‘X’ nor ‘O’)
+    // post: resets all of the JButtons on the grid
     public void clearDisplay()
     {
         // resets grid to null for every position
@@ -173,16 +207,19 @@ public class UI extends JFrame
         }
     }
 
-    // post: ends program
+    // post: ends program and exits window
     public void endProgram()
     {
         System.exit(0);
     }
 
+    // Handles mouse clicks
     private class MouseHandler extends MouseAdapter
     {
+        // Instance Variables
         public int row, col;
-        // constructor
+        
+        // Constructor
         public MouseHandler(int r, int c){
             row = r;
             col = c;

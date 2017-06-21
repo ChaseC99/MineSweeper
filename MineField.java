@@ -1,8 +1,30 @@
 /** MineSweeper
  *  @author Chase Carnaroli
- *  @period 6
  *  
+ *  MineField class is the model for the Minesweeper game
+ *  It stores all the information about the board
  *  Created based off of the PowaySoft TicTacToe Assignment
+ *
+ *  INSTANCE VARIABLES
+ *      int boardSize       // Width and height of the board
+ *      int mineCount       // Number of mines on the board
+ *      int tilesLeft       // Number of tiles (without mines) that haven't been turned
+ *      Tile[] board        // 2 dimmensional array of tiles
+ *
+ *  METHODS
+ *      assignMines()                               // Randomly assigns mines to some tiles on the grid
+ *      getBoard() -> Tile[]                        // Returns the board
+ *      recordTurn(Move) -> Result                  // Processes the move and returns the appropriate result
+ *      turnAdjacentZeros(Location)                 // Turns over all tiles surrounding the tile
+ *      getNumNeighboorMines(Location) -> int       // Returns number of mines around the selected location
+ *      turnOverTile(Location)                      // Turns tile at this location
+ *      getBoardSize() -> int                       // Returns boardSize
+ *      getTile(Location) -> Tile                   // Returns tile at this location
+ *      mineAt(Location) -> boolean                 // Returns true if there is a mine at the location
+ *      isValid(Location) -> boolean                // Makes sure a location is inside the grid
+ *      isChecked(Location) -> boolean              // Checks to see if location has been turned
+ *      printMineField()                            // Prints board to console
+ *
  */
 
 import java.util.*;
@@ -11,12 +33,17 @@ public class MineField
     // instance variables
     public int boardSize;
     private int mineCount;
-    private Tile[][] board;
     private int tilesLeft;
+    private Tile[][] board;
 
     /**
      * Constructor for class Board with default boardSize and mineCount
      * 16x16 with 40 mines
+     *
+     * First sets up a 2-dimensional array of tiles
+     * Then fills the array with tiles
+     * Then runs assignMines() to randomly assign mines to some tiles
+     * Lastly, runs getNumNeighboorMines(Location) for each tile so each knows how many of their neighboors have mines
      */
     public MineField()
     {
@@ -26,15 +53,17 @@ public class MineField
         board = new Tile[boardSize][boardSize];
         tilesLeft = boardSize * boardSize - mineCount;
 
+        // Puts a tile on each location of the grid
         for(int x = 0; x < boardSize; x++){
             for(int y = 0; y < boardSize; y++){
                 board[x][y] = new Tile(new Location(x,y));
             }
         }
 
+        // Assigns mines to some tiles randomly
         assignMines();
 
-        // Assign nums to each tile
+        // Runs getNumNeighboorMines(Location) for each tile in the grid
         for(int x = 0; x < boardSize; x++){
             for(int y = 0; y < boardSize; y++){
                 board[x][y].setNum(getNumNeighboorMines(new Location(x,y)));
@@ -44,6 +73,11 @@ public class MineField
     
     /**
      * Constructor for class Board with custom boardSize and mineCount
+     *
+     * First sets up a 2-dimensional array of tiles
+     * Then fills the array with tiles
+     * Then runs assignMines() to randomly assign mines to some tiles
+     * Lastly, runs getNumNeighboorMines(Location) for each tile so each knows how many of their neighboors have mines
      */
     public MineField(int boardSize, int mineCount)
     {
@@ -53,15 +87,17 @@ public class MineField
         board = new Tile[boardSize][boardSize];
         tilesLeft = boardSize * boardSize - mineCount;
 
+        // Puts a tile on each location of the grid
         for(int x = 0; x < boardSize; x++){
             for(int y = 0; y < boardSize; y++){
                 board[x][y] = new Tile(new Location(x,y));
             }
         }
 
+        // Assigns mines to some tiles randomly
         assignMines();
 
-        // Assign nums to each tile
+        // Runs getNumNeighboorMines(Location) for each tile in the grid
         for(int x = 0; x < boardSize; x++){
             for(int y = 0; y < boardSize; y++){
                 board[x][y].setNum(getNumNeighboorMines(new Location(x,y)));
@@ -69,6 +105,11 @@ public class MineField
         }
     }
 
+    /**
+     * Randomly assigns mines to some tiles on the grid
+     *
+     * post: 'mineCount' number of mines are randomly assigned to random tiles in the grid
+     */
     public void assignMines(){
         int counter = 0;
 
@@ -84,14 +125,23 @@ public class MineField
         }
     }
 
+    /**
+     * post: returns the board (Tile[][])
+     */
     public Tile[][] getBoard(){
         return board;
     }
 
-    // pre: ‘player’ is ‘X’ or ‘O’; ‘loc’ is a valid location
-    // post: if loc is not empty (or invalid), returns that Result; else loc is empty -> updates 
-    //  that location with ‘player’, increments numMoves, checks if win or tie, and returns
-    //  result
+    /**
+     *
+     * Processes the move and returns the appropriate result
+     *
+     * pre: ‘player’ is ‘X’ or ‘O’; ‘loc’ is a valid location
+     * post: if loc is not empty (or invalid), returns that Result; else loc is empty -> updates 
+     *  that location with ‘player’, increments numMoves, checks if win or tie, and returns
+     *  result
+     *
+     */
     public Result recordTurn(Move move)
     {        
         Location loc = move.getLocation();
@@ -105,26 +155,40 @@ public class MineField
             return Result.LOCATION_ALREADY_TURNED;
         }
         
-        // right click to flag tile
+        // If it was a right click to flag tile, this code runs
         if(clickType == Click.FLAG){
             Tile pos = getTile(loc);
             
+            // checks to see if tile is already flagged
             if(pos.isFlagged()){
+                // if it is flagged, the tile is unflagged
                 pos.setFlag(false);
                 return Result.TILE_UNFLAGGED;
             } else {
+                // else, the tile is flagged
                 pos.setFlag(true);
                 return Result.TILE_FLAGGED;
             }
         }
         
-        // left click to turn over tile
+        // If it was a left click to turn over tile, this code runs
         if(clickType == Click.TURN_TILE){
-            if(getTile(loc).isFlagged()){
-                if(getTile(loc).switchQuestionMark()){
-                    return Result.TILE_QUESTIONED;
-                } else {
+            Tile pos = getTile(loc);
+            
+            // checks to see if the tile was flagged
+            // if so, the tile is question marked
+            // important-note: When a tile is question marked, it is not unflagged
+            //      It becomes question marked AND flagged
+            if(pos.isFlagged()){
+                // checks to see if tile is already question marked
+                if(pos.isQuestionMarked()){
+                    // if it is, the tile is unquestioned
+                    pos.setQuestionMark(false);
                     return Result.TILE_FLAGGED;
+                } else {
+                    // else, the tile is questioned
+                    pos.setQuestionMark(true);
+                    return Result.TILE_QUESTIONED;
                 }
             }
             
@@ -134,6 +198,7 @@ public class MineField
             } else {
                 turnOverTile(loc);
 
+                // checks to see if all non-mine tiles have been turned
                 if(tilesLeft == 0){
                     return Result.MINEFIELD_CLEARED;
                 } else {
@@ -145,12 +210,12 @@ public class MineField
         return Result.GAME_NOT_OVER;
     }
 
-    // post: turns over all tiles surrounding a 0 tile
+    // post: turns over all tiles surrounding the tile
     public void turnAdjacentZeros(Location loc){
         int row = loc.getRow();
         int col = loc.getCol();
 
-        // Create new locations around loc
+        // Creates variables for all locations around loc
         Location topLeft = new Location(row-1,col-1);
         Location topMiddle = new Location(row-1,col);
         Location topRight = new Location(row-1,col+1);
@@ -176,7 +241,7 @@ public class MineField
         int row = loc.getRow();
         int col = loc.getCol();
 
-        int mines = 0;
+        int mines = 0;  // counter
 
         if(mineAt(new Location(row-1, col-1))) mines++;    // Top left cell
         if(mineAt(new Location(row-1, col))) mines++;      // Top middle cell
@@ -192,6 +257,7 @@ public class MineField
 
     // post: turns tile at this location
     public void turnOverTile(Location loc){
+        // checks to make sure tile hasn't already been turned
         if(isCovered(loc)){
             Tile tileToTurn = getTile(loc);
 
@@ -201,6 +267,7 @@ public class MineField
                 tilesLeft--;   // since it gets turned, tilesLeft decrements
             }
 
+            // if the tile was a 0, it runs turnAdjacentZeros to turn its neighboors
             if(tileToTurn.getNum() == 0){
                 turnAdjacentZeros(loc);
             }
@@ -217,8 +284,8 @@ public class MineField
         return board[loc.getRow()][loc.getCol()];
     }
 
-    // post: return player position
-    public boolean mineAt (Location loc)
+    // post: returns true if there is a mine at the location
+    public boolean mineAt(Location loc)
     {
         if(isValid(loc)){
             if(board[loc.getRow()][loc.getCol()].hasMine()){
@@ -227,7 +294,10 @@ public class MineField
         } else return false;
     }
 
-    // post: returns true if loc has row and col ranges 0-2
+    /**
+     * Makes sure a location is inside the grid
+     * post: returns true if loc has row and col ranges [0,boardSize]
+     */
     private boolean isValid(Location loc)
     {
         int row = loc.getRow();
@@ -239,7 +309,10 @@ public class MineField
         }
     }
 
-    // post: returns true if loc has empty String “” or Symbol.EMPTY
+    /**
+     * Checks to see if location has been turned
+     * post: returns true if loc is not turned
+     */ 
     private boolean isCovered(Location loc)
     {
         if(isValid(loc)){
@@ -249,6 +322,14 @@ public class MineField
         } else return false;
     }
 
+    /**
+     * Prints the grid to the console
+     * Used for debugging and testing
+     *
+     * post: prints the grid to the conosole
+     *          'x' represents mine
+     *          number represents number of tiles around it with mines
+     */
     public void printMineField(){
         for(int r = 0; r < boardSize; r++){
             for(int c = 0; c < boardSize; c++){
