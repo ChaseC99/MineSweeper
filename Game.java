@@ -1,6 +1,7 @@
 /** MineSweeper
  *  @author Chase Carnaroli
- *  @period 6
+ *  
+ *  Game class controls the gameflow of the MineSweeper game
  *  
  *  Created based off of the PowaySoft TicTacToe Assignment
  */
