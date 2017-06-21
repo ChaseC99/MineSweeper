@@ -63,13 +63,6 @@ public class Game
             do{
                 result = processMove();                     // gets result of the move; waits inside processMove method until tile is pressed
                 Location loc = pressedMove.getLocation();
-                /*if(result == Result.PLAYER_DIED){
-                    gameOver = true;            // end game
-                    display.showAllMines();     // show all mines
-                } else if(result == Result.MINEFIELD_CLEARED){
-                    gameOver = true;            // end game
-                    display.flagAllMines();     // flags all mines
-                }*/
 
                 switch(result){
                     case PLAYER_DIED:   
@@ -128,7 +121,6 @@ public class Game
             result = board.recordTurn(pressedMove);
             if(result != Result.INVALID_LOCATION && result != Result.LOCATION_ALREADY_TURNED){
                 validMove = true;
-                //display.updateDisplay();
             }
         }while(!validMove);
 
