@@ -93,7 +93,7 @@ public class UI extends JFrame
 
         // code for the icons
         // flag icon
-        flag = new StretchIcon("E:\\School\\Senior\\AP Computer Science\\MineSweeper\\MineSweeperFlag.gif");
+        flag = new StretchIcon("MineSweeperFlag.gif");
 
         this.setJMenuBar(menuBar);
         // DON'T FORGET TO INCLUDE THIS CODE - otherwise you will not
