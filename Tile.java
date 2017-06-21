@@ -78,6 +78,11 @@ public class Tile
     public void setQuestionMark(boolean question){
         questionMark = question;
     }
+  
+    // post: returns true is tile is question marked, false if not
+    public boolean isQuestionMarked(){
+        return questionMark; 
+    }
 
     // post: if tile wasn't turned already, it sets turn to true and returns true, else returns false
     public boolean turnTile(){
