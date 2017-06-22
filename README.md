@@ -7,3 +7,12 @@ After making Tic-Tac-Toe for my AP Computer Science class, I decided to take wha
 --------------------------------
 
 In future, I plan on cleaning up the UI and possibly adding in more game modes!
+
+To do list:
+  - Add menu bar
+    - Reset Option
+    - Help Menu
+  - Add welcome screen
+  - Fix flag icon size
+  - Add custom board size and custom mine count input options
+  - Add timer
