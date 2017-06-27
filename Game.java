@@ -91,6 +91,7 @@ public class Game
                         gameOver = true;
                         display.showAllMines();
                         display.showWrongFlags();
+                        display.showDetonatedMine(loc);
                         break;
                     case MINEFIELD_CLEARED:
                         gameOver = true;

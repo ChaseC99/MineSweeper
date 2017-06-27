@@ -185,6 +185,10 @@ public class UI extends JFrame
       }
     }
 
+    public void showDetonatedMine(Location loc){
+      buttonGrid[loc.getRow()][loc.getCol()].setBackground(Color.red);
+    }
+
     /**
      *  Updates display to flag all the mines
      *  post: all mines on the board are flagged
@@ -241,6 +245,7 @@ public class UI extends JFrame
                 buttonGrid[r][c].setText("" + ' ');
                 buttonGrid[r][c].getModel().setPressed(false);
                 buttonGrid[r][c].setEnabled(true);
+                buttonGrid[r][c].setBackground(null);
             }
         }
     }
