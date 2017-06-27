@@ -1,6 +1,6 @@
 /** MineSweeper
  *  @author Chase Carnaroli
- *  
+ *
  *  Controls the User Interface and communicates with the controller
  *  Created based off of the PowaySoft TicTacToe Assignment
  *
@@ -20,7 +20,7 @@
  *      flag(Location)                          // Flags tile at this location
  *      unFlag(Location)                        // Unflags tile at this location
  *      question(Location)                      // Question marks tile at this location
- *      displayWinner(Result) -> boolean        // Displays message with the end result; then asks if player wants to play again 
+ *      displayWinner(Result) -> boolean        // Displays message with the end result; then asks if player wants to play again
  *                                                      returns true if user clicks ‘yes’ or ‘false’ if user clicks ‘no’
  *      clearDisplay()                          // Resets all of the JButtons on the grid
  *      endProgram()                            // Ends program and exits window
@@ -47,10 +47,10 @@ public class UI extends JFrame
     // menu options
     JMenuBar menuBar;
     JMenu options, help;
-    JMenuItem restartItem;
+    JMenuItem pauseItem, restartItem, quitItem;
 
-    // post: constructor – constructs window with a GridLayout and 
-    //  a 3 x 3 grid of JButton components and a ButtonHandler; initializes 
+    // post: constructor – constructs window with a GridLayout and
+    //  a 3 x 3 grid of JButton components and a ButtonHandler; initializes
     //  reference to ‘game’ object
     public UI(Game game)
     {
@@ -82,24 +82,35 @@ public class UI extends JFrame
         menuBar = new JMenuBar();
 
         // Option menu
-        options = new JMenu("Game Options");
+        options = new JMenu("Game");
         options.setMnemonic(KeyEvent.VK_A);
         menuBar.add(options);
 
         // Sub Option Items
-        restartItem = new JMenuItem("Reset Game", KeyEvent.VK_T);
-        restartItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
+        //Pause
+        pauseItem = new JMenuItem("Pause", KeyEvent.VK_T);
+        options.add(pauseItem);
+
+        // Restart
+        restartItem = new JMenuItem("Reset", KeyEvent.VK_T);
+        //restartItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
         //restartItem.set
-        //options.add(restartItem);
+        options.add(restartItem);
+
+        // Quit
+        quitItem = new JMenuItem("Quit", KeyEvent.VK_T);
+        options.add(quitItem);
+
+        // Adds menu bar to screen
+        this.setJMenuBar(menuBar);
 
         // code for the icons
         // flag icon
         flag = new StretchIcon("MineSweeperFlag.gif");
 
-        this.setJMenuBar(menuBar);
         // DON'T FORGET TO INCLUDE THIS CODE - otherwise you will not
         // be able to close your application!!!
-        addWindowListener(new java.awt.event.WindowAdapter() 
+        addWindowListener(new java.awt.event.WindowAdapter()
             {
                 public void windowClosing(WindowEvent evt) {
                     System.exit(0);
@@ -118,7 +129,7 @@ public class UI extends JFrame
      *  post: displays ‘player’ char in JButton specified by ‘loc’
      */
     public void updateDisplay ()
-    {        
+    {
         for(int r = 0; r < boardSize; r++){
             for(int c = 0; c < boardSize; c++){
                 Location loc = new Location(r,c);
@@ -182,8 +193,8 @@ public class UI extends JFrame
         buttonGrid[loc.getRow()][loc.getCol()].setText("?");
     }
 
-    // post: displays message with the given result; then displays question 
-    //  “Do you want to play again?” and returns true if user clicks ‘yes’ 
+    // post: displays message with the given result; then displays question
+    //  “Do you want to play again?” and returns true if user clicks ‘yes’
     //  or ‘false’ if user clicks ‘no’
     public boolean displayWinner (Result result){
         updateDisplay();
@@ -220,7 +231,7 @@ public class UI extends JFrame
     {
         // Instance Variables
         public int row, col;
-        
+
         // Constructor
         public MouseHandler(int r, int c){
             row = r;
@@ -242,4 +253,3 @@ public class UI extends JFrame
         }
     }
 }
-
