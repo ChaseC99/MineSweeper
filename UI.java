@@ -18,6 +18,7 @@
  *      showAllMines()                          // Updates the display to show all mines except tiles that are flagged
  *      flagAllMines()                          // Updates display to flag all the mines
  *      showWrongFlags()                        // Updates the display to show each each tile with a flag && without a mine
+ *      showDetonatedMine(Location)             // Turns detonated tile red
  *      flag(Location)                          // Flags tile at this location
  *      unFlag(Location)                        // Unflags tile at this location
  *      question(Location)                      // Question marks tile at this location
@@ -185,6 +186,10 @@ public class UI extends JFrame
       }
     }
 
+    /**
+     *  Turns detonated tile red
+     *  post: tile with detonated mine gets background turned red
+     */
     public void showDetonatedMine(Location loc){
       buttonGrid[loc.getRow()][loc.getCol()].setBackground(Color.red);
     }
