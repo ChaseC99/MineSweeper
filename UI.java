@@ -17,6 +17,7 @@
  *      updateDisplay()                         // Updates the display based off of the board stored in the model
  *      showAllMines()                          // Updates the display to show all mines except tiles that are flagged
  *      flagAllMines()                          // Updates display to flag all the mines
+ *      showWrongFlags()                        // Updates the display to show each each tile with a flag && without a mine
  *      flag(Location)                          // Flags tile at this location
  *      unFlag(Location)                        // Unflags tile at this location
  *      question(Location)                      // Question marks tile at this location
@@ -48,6 +49,9 @@ public class UI extends JFrame
     JMenuBar menuBar;
     JMenu options, help;
     JMenuItem pauseItem, restartItem, quitItem;
+
+    // status bar
+    JPanel statusBar;
 
     // post: constructor – constructs window with a GridLayout and
     //  a 3 x 3 grid of JButton components and a ButtonHandler; initializes
@@ -119,7 +123,7 @@ public class UI extends JFrame
         );
 
         // Set window size and show window
-        Dimension screenSize = new Dimension(700,700);
+        Dimension screenSize = new Dimension(750,750);
         setMinimumSize(screenSize);     // width=700, height=700
         setVisible(true);
     }
@@ -150,14 +154,35 @@ public class UI extends JFrame
      *  post: displays each mine on the board except tiles that are flagged
      */
     public void showAllMines(){
-        for(int r = 0; r < boardSize; r++){
-            for(int c = 0; c < boardSize; c++){
-                Location loc = new Location(r,c);
-                if(myGame.getMineField().getTile(loc).hasMine() && !myGame.getMineField().getTile(loc).isFlagged()){
-                    buttonGrid[r][c].setText("X");
-                }
-            }
-        }
+      for(int r = 0; r < boardSize; r++){
+          for(int c = 0; c < boardSize; c++){
+              Location loc = new Location(r,c);
+              Tile tile = myGame.getMineField().getTile(loc);
+
+              if(tile.hasMine() && !tile.isFlagged()){
+                buttonGrid[r][c].setText("X");
+              }
+          }
+      }
+    }
+
+    /**
+     *  Updates the display to show each each tile with a flag && without a mine
+     *  post: displays a red "X" on each tile with a flag && without a mine
+     */
+    public void showWrongFlags(){
+      for(int r = 0; r < boardSize; r++){
+          for(int c = 0; c < boardSize; c++){
+              Location loc = new Location(r,c);
+              Tile tile = myGame.getMineField().getTile(loc);
+
+              if(tile.isFlagged() && !tile.hasMine()){
+                unFlag(loc);
+                buttonGrid[r][c].setForeground(Color.red);
+                buttonGrid[r][c].setText("X");
+              }
+          }
+      }
     }
 
     /**
