@@ -43,7 +43,7 @@ public class UI extends JFrame
     private JButton[][] buttonGrid;
     private int NUM_ROWS, NUM_COLS, boardSize;
     private Dimension buttonSize;
-    private StretchIcon flag;
+    private StretchIcon flag, mine;
 
     // menu options
     JMenuBar menuBar;
@@ -109,8 +109,8 @@ public class UI extends JFrame
         this.setJMenuBar(menuBar);
 
         // code for the icons
-        // flag icon
-        flag = new StretchIcon("MineSweeperFlag.gif");
+        flag = new StretchIcon("MineSweeperFlag.gif");  // flag icon
+        mine = new StretchIcon("Mine.png");             // mine icon
 
         // DON'T FORGET TO INCLUDE THIS CODE - otherwise you will not
         // be able to close your application!!!
@@ -160,7 +160,7 @@ public class UI extends JFrame
               Tile tile = myGame.getMineField().getTile(loc);
 
               if(tile.hasMine() && !tile.isFlagged()){
-                buttonGrid[r][c].setText("X");
+                buttonGrid[r][c].setIcon(mine);
               }
           }
       }
@@ -242,6 +242,7 @@ public class UI extends JFrame
         // resets grid to null for every position
         for(int r = 0; r < boardSize; r++){
             for(int c = 0; c < boardSize; c++){
+                buttonGrid[r][c].setIcon(null);
                 buttonGrid[r][c].setText("" + ' ');
                 buttonGrid[r][c].getModel().setPressed(false);
                 buttonGrid[r][c].setEnabled(true);
