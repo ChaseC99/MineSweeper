@@ -75,8 +75,8 @@ public class UI extends JFrame
                 buttonGrid[r][c] = new JButton();
 
                 container.add(buttonGrid[r][c]);
-
                 buttonGrid[r][c].addMouseListener(new MouseHandler(r,c));
+                buttonGrid[r][c].setFocusPainted(false);  // gets rid of box outlining text of selected box
             }
         }
 
@@ -191,7 +191,8 @@ public class UI extends JFrame
      *  post: tile with detonated mine gets background turned red
      */
     public void showDetonatedMine(Location loc){
-      buttonGrid[loc.getRow()][loc.getCol()].setBackground(Color.red);
+      buttonGrid[loc.getRow()][loc.getCol()].setBackground(Color.red);  // sets background to red
+      buttonGrid[loc.getRow()][loc.getCol()].setBorderPainted(false);   // gets rid of button border
     }
 
     /**
@@ -248,10 +249,11 @@ public class UI extends JFrame
         for(int r = 0; r < boardSize; r++){
             for(int c = 0; c < boardSize; c++){
                 buttonGrid[r][c].setIcon(null);
-                buttonGrid[r][c].setText("" + ' ');
+                buttonGrid[r][c].setText(null);
                 buttonGrid[r][c].getModel().setPressed(false);
                 buttonGrid[r][c].setEnabled(true);
                 buttonGrid[r][c].setBackground(null);
+                buttonGrid[r][c].setBorderPainted(true);
             }
         }
     }
