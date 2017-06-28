@@ -1,8 +1,8 @@
 /** MineSweeper
  *  @author Chase Carnaroli
- * 
+ *
  *  Each location on the grid has a Tile class
- *  
+ *
  *  INSTANCE VARIABLES
  *      boolean mine                // represents whether or not the tile has a mine
  *      boolean flagged             // represents whether or not the tile is flagged
@@ -13,7 +13,7 @@
  *
  *  METHODS
  *      getLocation() -> Location   // returns the location of the tile
- *      plantMine()                 // plants a mine on this tile 
+ *      plantMine()                 // plants a mine on this tile
                                     // post: mine set to true
  *      setFlag(boolean)            // set whether or not the tile is flagged
                                     // post: flagged is set to the boolean passed through the method
@@ -21,7 +21,7 @@
  *      setQuestionMark(boolean)    // set whether or not the tile is question marked
                                     // post: questionMark is set to the boolean passed through the method
  *      turnTile() -> boolean       // post: if tile wasn't turned already, it sets turn to true and returns true, else returns false
- *      isTurned() -> boolean       // returns true if tile is turned, false if not                               
+ *      isTurned() -> boolean       // returns true if tile is turned, false if not
  *      hasMine() -> boolean        // returns true if tile has mine, false if not
  *      setNum()                    // post: sets neighboorsWithMines to the int passed through
  *      getNum() -> int             // returns number of neighboors with mines
@@ -78,10 +78,10 @@ public class Tile
     public void setQuestionMark(boolean question){
         questionMark = question;
     }
-  
+
     // post: returns true is tile is question marked, false if not
     public boolean isQuestionMarked(){
-        return questionMark; 
+        return questionMark;
     }
 
     // post: if tile wasn't turned already, it sets turn to true and returns true, else returns false

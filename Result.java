@@ -1,8 +1,8 @@
 /** MineField
  *  @author Chase Carnaroli
- *  
+ *
  *  Result enum represents all possible results of a move
- *  
+ *
  *  The different results are:
  *      INVALID_LOCATION            // Location selected in not on the grid or some other critical error
  *      LOCATION_ALREADY_TURNED     // Location has already been turned over
@@ -17,4 +17,3 @@
 public enum Result {
     INVALID_LOCATION, LOCATION_ALREADY_TURNED, GAME_NOT_OVER, PLAYER_DIED, MINEFIELD_CLEARED, TILE_FLAGGED, TILE_UNFLAGGED, TILE_QUESTIONED
 }
-     
