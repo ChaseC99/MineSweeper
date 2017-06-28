@@ -1,23 +1,23 @@
 /** MineSweeper
  *  @author Chase Carnaroli
  *  @period 6
- *  
+ *
  *  Created based off of the PowaySoft TicTacToe Assignment
  */
 
 // Import to support default look and feel
-import javax.swing.UIManager; 
-import javax.swing.UnsupportedLookAndFeelException; 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
-// main() 
+// main()
 public class MineSweeper {
-    public static void main(String[] args){ 
-        
+    public static void main(String[] args){
+
         // Set look and feel default
         try {
             // Set cross-platform Java L&F (also called "Metal")
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } 
+        }
         catch (UnsupportedLookAndFeelException e) {
             // handle exception
         }
@@ -30,7 +30,7 @@ public class MineSweeper {
         catch (IllegalAccessException e) {
             // handle exception
         }
-        
+
         Game mineSweeper = new Game();
         UI display = new UI(mineSweeper);
         mineSweeper.setDisplay(display);

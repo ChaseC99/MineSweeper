@@ -1,10 +1,10 @@
 /** MineSweeper
  *  @author Chase Carnaroli
- *  
+ *
  *  Game class controls the gameflow of the MineSweeper game
  *  Implements Model-View-Controller architectural pattern
  *  Created based off of the PowaySoft TicTacToe Assignment
- *  
+ *
  *  INSTANCE VARIABLES
  *      MineField board         // The model of the game
  *      UI display              // The View of the game
@@ -14,7 +14,7 @@
  *  METHODS
  *      getMineField() -> MineField     // Returns MineField
  *      getBoardSize() -> int           // Returns boardSize
- *      setDisplay(UI)                  // Sets the UI 
+ *      setDisplay(UI)                  // Sets the UI
  *      playGame()                      // Controls the game and keeps playing until game is over
  *      processMove() -> Result         // waits for UI to indicate that a square was clicked (by detecting that pressed == true),
  *                                          then tells board to either record the move or indicate if it was an invalid move;
@@ -87,9 +87,11 @@ public class Game
                 Location loc = pressedMove.getLocation();
 
                 switch(result){
-                    case PLAYER_DIED:   
+                    case PLAYER_DIED:
                         gameOver = true;
                         display.showAllMines();
+                        display.showWrongFlags();
+                        display.showDetonatedMine(loc);
                         break;
                     case MINEFIELD_CLEARED:
                         gameOver = true;
@@ -119,7 +121,7 @@ public class Game
         display.endProgram();   // end game and close program
     }
 
-    /* 
+    /*
      * pre: ‘pressed’ is false
      * post: waits for UI to indicate that a square was clicked (by detecting that pressed == true),
      *          then tells board to either record the move or indicate if it was an invalid move;
@@ -161,11 +163,11 @@ public class Game
 
     /*
      * post: clears board for a new game
-     */ 
+     */
     private void resetGame()
     {
         display.clearDisplay();
         board = new MineField();
         pressed = false;
-    }    
+    }
 }

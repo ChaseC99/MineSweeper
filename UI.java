@@ -1,6 +1,6 @@
 /** MineSweeper
  *  @author Chase Carnaroli
- *  
+ *
  *  Controls the User Interface and communicates with the controller
  *  Created based off of the PowaySoft TicTacToe Assignment
  *
@@ -17,10 +17,12 @@
  *      updateDisplay()                         // Updates the display based off of the board stored in the model
  *      showAllMines()                          // Updates the display to show all mines except tiles that are flagged
  *      flagAllMines()                          // Updates display to flag all the mines
+ *      showWrongFlags()                        // Updates the display to show each each tile with a flag && without a mine
+ *      showDetonatedMine(Location)             // Turns detonated tile red
  *      flag(Location)                          // Flags tile at this location
  *      unFlag(Location)                        // Unflags tile at this location
  *      question(Location)                      // Question marks tile at this location
- *      displayWinner(Result) -> boolean        // Displays message with the end result; then asks if player wants to play again 
+ *      displayWinner(Result) -> boolean        // Displays message with the end result; then asks if player wants to play again
  *                                                      returns true if user clicks ‘yes’ or ‘false’ if user clicks ‘no’
  *      clearDisplay()                          // Resets all of the JButtons on the grid
  *      endProgram()                            // Ends program and exits window
@@ -42,15 +44,18 @@ public class UI extends JFrame
     private JButton[][] buttonGrid;
     private int NUM_ROWS, NUM_COLS, boardSize;
     private Dimension buttonSize;
-    private StretchIcon flag;
+    private StretchIcon flag, mine;
 
     // menu options
     JMenuBar menuBar;
     JMenu options, help;
-    JMenuItem restartItem;
+    JMenuItem pauseItem, restartItem, quitItem;
 
-    // post: constructor – constructs window with a GridLayout and 
-    //  a 3 x 3 grid of JButton components and a ButtonHandler; initializes 
+    // status bar
+    JPanel statusBar;
+
+    // post: constructor – constructs window with a GridLayout and
+    //  a 3 x 3 grid of JButton components and a ButtonHandler; initializes
     //  reference to ‘game’ object
     public UI(Game game)
     {
@@ -82,24 +87,35 @@ public class UI extends JFrame
         menuBar = new JMenuBar();
 
         // Option menu
-        options = new JMenu("Game Options");
+        options = new JMenu("Game");
         options.setMnemonic(KeyEvent.VK_A);
         menuBar.add(options);
 
         // Sub Option Items
-        restartItem = new JMenuItem("Reset Game", KeyEvent.VK_T);
-        restartItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
+        //Pause
+        pauseItem = new JMenuItem("Pause", KeyEvent.VK_T);
+        options.add(pauseItem);
+
+        // Restart
+        restartItem = new JMenuItem("Reset", KeyEvent.VK_T);
+        //restartItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
         //restartItem.set
-        //options.add(restartItem);
+        options.add(restartItem);
+
+        // Quit
+        quitItem = new JMenuItem("Quit", KeyEvent.VK_T);
+        options.add(quitItem);
+
+        // Adds menu bar to screen
+        this.setJMenuBar(menuBar);
 
         // code for the icons
-        // flag icon
-        flag = new StretchIcon("MineSweeperFlag.gif");
+        flag = new StretchIcon("MineSweeperFlag.gif");  // flag icon
+        mine = new StretchIcon("Mine.png");             // mine icon
 
-        this.setJMenuBar(menuBar);
         // DON'T FORGET TO INCLUDE THIS CODE - otherwise you will not
         // be able to close your application!!!
-        addWindowListener(new java.awt.event.WindowAdapter() 
+        addWindowListener(new java.awt.event.WindowAdapter()
             {
                 public void windowClosing(WindowEvent evt) {
                     System.exit(0);
@@ -108,7 +124,7 @@ public class UI extends JFrame
         );
 
         // Set window size and show window
-        Dimension screenSize = new Dimension(700,700);
+        Dimension screenSize = new Dimension(750,750);
         setMinimumSize(screenSize);     // width=700, height=700
         setVisible(true);
     }
@@ -118,7 +134,7 @@ public class UI extends JFrame
      *  post: displays ‘player’ char in JButton specified by ‘loc’
      */
     public void updateDisplay ()
-    {        
+    {
         for(int r = 0; r < boardSize; r++){
             for(int c = 0; c < boardSize; c++){
                 Location loc = new Location(r,c);
@@ -139,14 +155,43 @@ public class UI extends JFrame
      *  post: displays each mine on the board except tiles that are flagged
      */
     public void showAllMines(){
-        for(int r = 0; r < boardSize; r++){
-            for(int c = 0; c < boardSize; c++){
-                Location loc = new Location(r,c);
-                if(myGame.getMineField().getTile(loc).hasMine() && !myGame.getMineField().getTile(loc).isFlagged()){
-                    buttonGrid[r][c].setText("X");
-                }
-            }
-        }
+      for(int r = 0; r < boardSize; r++){
+          for(int c = 0; c < boardSize; c++){
+              Location loc = new Location(r,c);
+              Tile tile = myGame.getMineField().getTile(loc);
+
+              if(tile.hasMine() && !tile.isFlagged()){
+                buttonGrid[r][c].setIcon(mine);
+              }
+          }
+      }
+    }
+
+    /**
+     *  Updates the display to show each each tile with a flag && without a mine
+     *  post: displays a red "X" on each tile with a flag && without a mine
+     */
+    public void showWrongFlags(){
+      for(int r = 0; r < boardSize; r++){
+          for(int c = 0; c < boardSize; c++){
+              Location loc = new Location(r,c);
+              Tile tile = myGame.getMineField().getTile(loc);
+
+              if(tile.isFlagged() && !tile.hasMine()){
+                unFlag(loc);
+                buttonGrid[r][c].setForeground(Color.red);
+                buttonGrid[r][c].setText("X");
+              }
+          }
+      }
+    }
+
+    /**
+     *  Turns detonated tile red
+     *  post: tile with detonated mine gets background turned red
+     */
+    public void showDetonatedMine(Location loc){
+      buttonGrid[loc.getRow()][loc.getCol()].setBackground(Color.red);
     }
 
     /**
@@ -182,8 +227,8 @@ public class UI extends JFrame
         buttonGrid[loc.getRow()][loc.getCol()].setText("?");
     }
 
-    // post: displays message with the given result; then displays question 
-    //  “Do you want to play again?” and returns true if user clicks ‘yes’ 
+    // post: displays message with the given result; then displays question
+    //  “Do you want to play again?” and returns true if user clicks ‘yes’
     //  or ‘false’ if user clicks ‘no’
     public boolean displayWinner (Result result){
         updateDisplay();
@@ -202,9 +247,11 @@ public class UI extends JFrame
         // resets grid to null for every position
         for(int r = 0; r < boardSize; r++){
             for(int c = 0; c < boardSize; c++){
+                buttonGrid[r][c].setIcon(null);
                 buttonGrid[r][c].setText("" + ' ');
                 buttonGrid[r][c].getModel().setPressed(false);
                 buttonGrid[r][c].setEnabled(true);
+                buttonGrid[r][c].setBackground(null);
             }
         }
     }
@@ -220,7 +267,7 @@ public class UI extends JFrame
     {
         // Instance Variables
         public int row, col;
-        
+
         // Constructor
         public MouseHandler(int r, int c){
             row = r;
@@ -242,4 +289,3 @@ public class UI extends JFrame
         }
     }
 }
-

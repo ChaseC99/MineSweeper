@@ -1,6 +1,6 @@
 /** MineSweeper
  *  @author Chase Carnaroli
- *  
+ *
  *  MineField class is the model for the Minesweeper game
  *  It stores all the information about the board
  *  Created based off of the PowaySoft TicTacToe Assignment
@@ -70,7 +70,7 @@ public class MineField
             }
         }
     }
-    
+
     /**
      * Constructor for class Board with custom boardSize and mineCount
      *
@@ -137,13 +137,13 @@ public class MineField
      * Processes the move and returns the appropriate result
      *
      * pre: ‘player’ is ‘X’ or ‘O’; ‘loc’ is a valid location
-     * post: if loc is not empty (or invalid), returns that Result; else loc is empty -> updates 
+     * post: if loc is not empty (or invalid), returns that Result; else loc is empty -> updates
      *  that location with ‘player’, increments numMoves, checks if win or tie, and returns
      *  result
      *
      */
     public Result recordTurn(Move move)
-    {        
+    {
         Location loc = move.getLocation();
         Click clickType = move.getClickType();
 
@@ -154,11 +154,11 @@ public class MineField
         else if(!isCovered(loc)){
             return Result.LOCATION_ALREADY_TURNED;
         }
-        
+
         // If it was a right click to flag tile, this code runs
         if(clickType == Click.FLAG){
             Tile pos = getTile(loc);
-            
+
             // checks to see if tile is already flagged
             if(pos.isFlagged()){
                 // if it is flagged, the tile is unflagged
@@ -170,11 +170,11 @@ public class MineField
                 return Result.TILE_FLAGGED;
             }
         }
-        
+
         // If it was a left click to turn over tile, this code runs
         if(clickType == Click.TURN_TILE){
             Tile pos = getTile(loc);
-            
+
             // checks to see if the tile was flagged
             // if so, the tile is question marked
             // important-note: When a tile is question marked, it is not unflagged
@@ -191,7 +191,7 @@ public class MineField
                     return Result.TILE_QUESTIONED;
                 }
             }
-            
+
             // records turn and checks for gameover
             if(mineAt(loc)){
                 return Result.PLAYER_DIED;
@@ -206,7 +206,7 @@ public class MineField
                 }
             }
         }
-        
+
         return Result.GAME_NOT_OVER;
     }
 
@@ -231,7 +231,7 @@ public class MineField
         turnOverTile(topRight);
         turnOverTile(left);
         turnOverTile(right);
-        turnOverTile(bottomLeft);   
+        turnOverTile(bottomLeft);
         turnOverTile(bottomMiddle);
         turnOverTile(bottomRight);
     }
@@ -278,7 +278,7 @@ public class MineField
     public int getBoardSize(){
         return boardSize;
     }
-    
+
     // post: returns tile at this location
     public Tile getTile(Location loc){
         return board[loc.getRow()][loc.getCol()];
@@ -312,7 +312,7 @@ public class MineField
     /**
      * Checks to see if location has been turned
      * post: returns true if loc is not turned
-     */ 
+     */
     private boolean isCovered(Location loc)
     {
         if(isValid(loc)){
