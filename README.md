@@ -1,6 +1,6 @@
 # MineSweeper
 
-### Created by Chase Carnaroli
+### Created by <html><a href="https://github.com/ChaseC99/MineSweeper#contact-info">Chase Carnaroli</a></html>
 This is my version of the popular game, *MineSweeper*!  
 It is one of the first games I ever developed.
 
