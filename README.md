@@ -4,7 +4,7 @@
 This is my version of the popular game, *MineSweeper*!  
 It is one of the first games I ever developed.
 
-![MineSweeper Screenshot](https://lh3.googleusercontent.com/pBGQhfSMB2Q-9VEnHcCSgO63hpRUSqfsl-CP-8G2Op62K8opwXrWVyx68UAQ_7GhIRtqd6v7PjluaxA=w1436-h1606-rw)  
+![MineSweeper Screenshot](http://imgur.com/d1XCurJ)  
 Screenshot of *MineSweeper*
 
 #### Background
