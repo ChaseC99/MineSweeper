@@ -4,9 +4,12 @@
 This is my version of the popular game, *MineSweeper*!  
 It is one of the first games I ever developed.
 
-<img src="http://i.imgur.com/d1XCurJ.png" alt="Screenshot of MineSweeper game" width="600">  
-
-Screenshot of *MineSweeper*
+<html>
+  <figure>
+    <img src="http://i.imgur.com/d1XCurJ.png" alt="Screenshot of MineSweeper game" width="600">
+    <figcaption> Screenshot of <i>MineSweeper</i> </figcaption>
+  </figure>
+</html>
 
 #### Background
 During my senior year of high school, I got really obsessed with *MineSweeper*.
