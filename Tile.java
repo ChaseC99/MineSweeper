@@ -10,6 +10,7 @@
  *      int neighboorsWithMines     // number of neighboors with mines
  *      boolean turned              // represents whether or not the tile has been turned
  *      boolean questionMark        // represents whether or not the tile is question marked
+ *      Color textColor             // color for the text
  *
  *  METHODS
  *      getLocation() -> Location   // returns the location of the tile
@@ -23,10 +24,14 @@
  *      turnTile() -> boolean       // post: if tile wasn't turned already, it sets turn to true and returns true, else returns false
  *      isTurned() -> boolean       // returns true if tile is turned, false if not
  *      hasMine() -> boolean        // returns true if tile has mine, false if not
- *      setNum()                    // post: sets neighboorsWithMines to the int passed through
+ *      setNum(int)                 // post: sets neighboorsWithMines to the int passed through
+ *      setColor(int)               // sets color of tile based off of the number of mines around it
  *      getNum() -> int             // returns number of neighboors with mines
+ *      getColor() -> Color         // returns color for the text
  *      toString() -> String        // returns string of the int value of number of neighboors. If value == 0, returns and empty string
  */
+
+ import java.awt.Color;   // imports color class
 
 public class Tile
 {
@@ -37,6 +42,7 @@ public class Tile
     private int neighboorsWithMines;    // number of neighboors with mines
     private boolean turned;             // represents whether or not the tile has been turned
     private boolean questionMark;       // represents whether or not the tile is question marked
+    private Color textColor;            // color of the text
 
     /**
      * Constructor for objects of class Tile
@@ -49,6 +55,7 @@ public class Tile
         flagged = false;
         turned = false;
         questionMark = false;
+        textColor = null;
     }
 
     // returns the location of the tile
@@ -106,12 +113,45 @@ public class Tile
 
     // post: sets neighboorsWithMines to the int passed through
     public void setNum(int neighboors){
+        // set number for tile
         neighboorsWithMines = neighboors;
+        // set color
+        setColor(neighboors);
+    }
+
+    // post: sets color of tile based off of the number of mines around it
+    public void setColor(int num){
+      // set color for tile
+      switch(num){
+        case 1: textColor = Color.BLUE;
+                break;
+        case 2: textColor = Color.GREEN;
+                break;
+        case 3: textColor = Color.RED;
+                break;
+        case 4: textColor = new Color(128, 0, 128);   // purple
+                break;
+        case 5: textColor = new Color(128, 0, 0);     // maroon
+                break;
+        case 6: textColor = new Color(64, 224, 208);  // turquoise
+                break;
+        case 7: textColor = Color.BLACK;
+                break;
+        case 8: textColor = Color.GRAY;
+                break;
+        default: textColor = null;
+                break;
+      }
     }
 
     // returns number of neighboors with mines
     public int getNum(){
         return neighboorsWithMines;
+    }
+
+    // returns color for the text
+    public Color getColor(){
+        return textColor;
     }
 
     // returns string of the int value of number of neighboors. If value == 0, returns and empty string
