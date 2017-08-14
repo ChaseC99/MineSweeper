@@ -48,7 +48,7 @@ public class MineField
     public MineField()
     {
         // Set up minefield
-        this.boardSize = 16;
+        this.boardSize = 14;
         this.mineCount = 20;
         board = new Tile[boardSize][boardSize];
         tilesLeft = boardSize * boardSize - mineCount;

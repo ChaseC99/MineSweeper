@@ -124,7 +124,7 @@ public class UI extends JFrame
         );
 
         // Set window size and show window
-        Dimension screenSize = new Dimension(750,750);
+        Dimension screenSize = new Dimension(650,650);
         setMinimumSize(screenSize);     // width=700, height=700
         setVisible(true);
     }
