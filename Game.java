@@ -3,7 +3,6 @@
  *
  *  Game class controls the gameflow of the MineSweeper game
  *  Implements Model-View-Controller architectural pattern
- *  Created based off of the PowaySoft TicTacToe Assignment
  *
  *  INSTANCE VARIABLES
  *      MineField board         // The model of the game

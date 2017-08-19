@@ -2,7 +2,6 @@
  *  @author Chase Carnaroli
  *
  *  The Location class stores a row and column, which correlates to a position on the grid.
- *  Created based off of the PowaySoft TicTacToe Assignment
  *
  *  INSTANCE VARIABLES
  *      int row     // Row location on the grid

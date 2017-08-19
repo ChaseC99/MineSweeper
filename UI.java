@@ -2,7 +2,6 @@
  *  @author Chase Carnaroli
  *
  *  Controls the User Interface and communicates with the controller
- *  Created based off of the PowaySoft TicTacToe Assignment
  *
  *  INSTANCE VARIABLES
  *      Game myGame                 // Controller
