@@ -82,28 +82,26 @@ public class UI extends JFrame
 
         buttonSize = buttonGrid[0][0].getSize();
 
-        // Menus
+        // MENU
         // Menu Bar
         menuBar = new JMenuBar();
 
         // Option menu
         options = new JMenu("Game");
-        options.setMnemonic(KeyEvent.VK_A);
         menuBar.add(options);
 
         // Sub Option Items
         //Pause
-        pauseItem = new JMenuItem("Pause", KeyEvent.VK_T);
+        pauseItem = new JMenuItem("Pause");
         options.add(pauseItem);
 
         // Restart
-        restartItem = new JMenuItem("Reset", KeyEvent.VK_T);
-        //restartItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
-        //restartItem.set
+        restartItem = new JMenuItem("Reset");
+        restartItem.addActionListener(new ResetListener(this));
         options.add(restartItem);
 
         // Quit
-        quitItem = new JMenuItem("Quit", KeyEvent.VK_T);
+        quitItem = new JMenuItem("Quit");
         options.add(quitItem);
 
         // Adds menu bar to screen
@@ -264,7 +262,7 @@ public class UI extends JFrame
         System.exit(0);
     }
 
-    // Handles mouse clicks
+    // Handles mouse clicks on the board
     private class MouseHandler extends MouseAdapter
     {
         // Instance Variables
@@ -288,6 +286,28 @@ public class UI extends JFrame
             }
 
             myGame.pressed(new Move(new Location(row,col), clickType));
+        }
+    }
+
+    // Listens for reset option to be clicked
+    private class ResetListener implements ActionListener
+    {
+        // Instance Variables
+        Component uiWindow;     // the Component is needed in order to display the JOptionPane
+
+        // Constructor
+        public ResetListener(Component window){
+            uiWindow = window;
+        }
+
+        public void actionPerformed(ActionEvent e){
+            // displays popup window, asking user if they want to restart the game
+            int response = JOptionPane.showConfirmDialog(uiWindow,"Are you sure you want to restart?", "Restart Game", JOptionPane.YES_NO_OPTION);
+            if(response == JOptionPane.YES_OPTION){
+                myGame.resetGame();
+            } else {
+
+            }
         }
     }
 }
