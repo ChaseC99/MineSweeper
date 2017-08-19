@@ -164,7 +164,7 @@ public class Game
     /*
      * post: clears board for a new game
      */
-    private void resetGame()
+    public void resetGame()
     {
         display.clearDisplay();
         board = new MineField();
