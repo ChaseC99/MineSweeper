@@ -303,11 +303,7 @@ public class UI extends JFrame
         public void actionPerformed(ActionEvent e){
             // displays popup window, asking user if they want to restart the game
             int response = JOptionPane.showConfirmDialog(uiWindow,"Are you sure you want to restart?", "Restart Game", JOptionPane.YES_NO_OPTION);
-            if(response == JOptionPane.YES_OPTION){
-                myGame.resetGame();
-            } else {
-
-            }
+            if(response == JOptionPane.YES_OPTION){    myGame.resetGame();    }
         }
     }
 }
