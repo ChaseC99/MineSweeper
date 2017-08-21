@@ -35,6 +35,7 @@ import java.awt.event.*;                // import event listener
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class UI extends JFrame
 {
@@ -58,6 +59,7 @@ public class UI extends JFrame
     //  reference to ‘game’ object
     public UI(Game game)
     {
+        super("MineSweeper");
         myGame = game;
         boardSize = game.getBoardSize();
         NUM_ROWS = boardSize;
