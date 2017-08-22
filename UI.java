@@ -142,6 +142,7 @@ public class UI extends JFrame
 
                 if(pos.isTurned()){
                     button.setText(pos.toString());
+                    button.setForeground(pos.getColor());
                     button.getModel().setPressed(true);
                     button.setEnabled(false);
                 }
