@@ -98,12 +98,20 @@ public class UI extends JFrame
 
         // Restart
         restartItem = new JMenuItem("Reset", KeyEvent.VK_T);
-        //restartItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
-        //restartItem.set
+        restartItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myGame.resetGame();
+            }
+        });
         options.add(restartItem);
 
         // Quit
         quitItem = new JMenuItem("Quit", KeyEvent.VK_T);
+        quitItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                System.exit(0);
+            }
+        });
         options.add(quitItem);
 
         // Adds menu bar to screen
@@ -133,7 +141,7 @@ public class UI extends JFrame
      *  Updates the display based off of the board stored in the model
      *  post: displays ‘player’ char in JButton specified by ‘loc’
      */
-    public void updateDisplay ()
+    public void updateDisplay()
     {
         for(int r = 0; r < boardSize; r++){
             for(int c = 0; c < boardSize; c++){
