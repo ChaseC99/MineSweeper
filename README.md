@@ -26,7 +26,6 @@ In future, I plan on cleaning up the UI and possibly adding in more game modes!
 - Add welcome screen
 - Add menu bar
   - Pause Button
-  - Reset Option
   - Help Menu
 - Mines left counter
 
