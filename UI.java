@@ -2,7 +2,6 @@
  *  @author Chase Carnaroli
  *
  *  Controls the User Interface and communicates with the controller
- *  Created based off of the PowaySoft TicTacToe Assignment
  *
  *  INSTANCE VARIABLES
  *      Game myGame                 // Controller
@@ -36,6 +35,7 @@ import java.awt.event.*;                // import event listener
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class UI extends JFrame
 {
@@ -59,6 +59,7 @@ public class UI extends JFrame
     //  reference to ‘game’ object
     public UI(Game game)
     {
+        super("MineSweeper");
         myGame = game;
         boardSize = game.getBoardSize();
         NUM_ROWS = boardSize;
@@ -82,18 +83,17 @@ public class UI extends JFrame
 
         buttonSize = buttonGrid[0][0].getSize();
 
-        // Menus
+        // MENU
         // Menu Bar
         menuBar = new JMenuBar();
 
         // Option menu
         options = new JMenu("Game");
-        options.setMnemonic(KeyEvent.VK_A);
         menuBar.add(options);
 
         // Sub Option Items
         //Pause
-        pauseItem = new JMenuItem("Pause", KeyEvent.VK_T);
+        pauseItem = new JMenuItem("Pause");
         options.add(pauseItem);
 
         // Restart
@@ -112,6 +112,7 @@ public class UI extends JFrame
                 System.exit(0);
             }
         });
+
         options.add(quitItem);
 
         // Adds menu bar to screen
@@ -132,7 +133,7 @@ public class UI extends JFrame
         );
 
         // Set window size and show window
-        Dimension screenSize = new Dimension(750,750);
+        Dimension screenSize = new Dimension(650,650);
         setMinimumSize(screenSize);     // width=700, height=700
         setVisible(true);
     }
@@ -273,7 +274,7 @@ public class UI extends JFrame
         System.exit(0);
     }
 
-    // Handles mouse clicks
+    // Handles mouse clicks on the board
     private class MouseHandler extends MouseAdapter
     {
         // Instance Variables
@@ -297,6 +298,24 @@ public class UI extends JFrame
             }
 
             myGame.pressed(new Move(new Location(row,col), clickType));
+        }
+    }
+
+    // Listens for reset option to be clicked
+    private class ResetListener implements ActionListener
+    {
+        // Instance Variables
+        Component uiWindow;     // the Component is needed in order to display the JOptionPane
+
+        // Constructor
+        public ResetListener(Component window){
+            uiWindow = window;
+        }
+
+        public void actionPerformed(ActionEvent e){
+            // displays popup window, asking user if they want to restart the game
+            int response = JOptionPane.showConfirmDialog(uiWindow,"Are you sure you want to restart?", "Restart Game", JOptionPane.YES_NO_OPTION);
+            if(response == JOptionPane.YES_OPTION){    myGame.resetGame();    }
         }
     }
 }

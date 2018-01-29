@@ -2,7 +2,7 @@
  *  @author Chase Carnaroli
  *  @period 6
  *
- *  Created based off of the PowaySoft TicTacToe Assignment
+ *  Main code which runs the game
  */
 
 // Import to support default look and feel

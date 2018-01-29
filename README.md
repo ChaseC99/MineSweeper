@@ -16,9 +16,6 @@ During my senior year of high school, I got really obsessed with *MineSweeper*.
 After making the game *Tic-Tac-Toe* for my AP Computer Science class, I decided to take what I learned about grid layouts, game flow, and buttons, to create my own version of *MineSweeper*!
 
 ---
-### The Code
-
----
 ### Future Updates
 In future, I plan on cleaning up the UI and possibly adding in more game modes!
 

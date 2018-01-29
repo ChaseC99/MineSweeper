@@ -3,7 +3,6 @@
  *
  *  MineField class is the model for the Minesweeper game
  *  It stores all the information about the board
- *  Created based off of the PowaySoft TicTacToe Assignment
  *
  *  INSTANCE VARIABLES
  *      int boardSize       // Width and height of the board
@@ -48,7 +47,7 @@ public class MineField
     public MineField()
     {
         // Set up minefield
-        this.boardSize = 16;
+        this.boardSize = 14;
         this.mineCount = 20;
         board = new Tile[boardSize][boardSize];
         tilesLeft = boardSize * boardSize - mineCount;
